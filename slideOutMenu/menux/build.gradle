@@ -3,14 +3,23 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    def libPrefix = 'slidingmenulib-'
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION  as int
         versionCode project.VERSION_CODE_MAIN_LIB as int
         versionName project.VERSION_NAME_MAIN_LIB
     }
     buildTypes {
+        libraryVariants.all { variant ->
+            variant.outputs.each { output ->
+                def filename = output.outputFile.name
+                filename = filename.replace('library-', libPrefix).replace('.aar', '-' + defaultConfig.versionName + '.aar')
+                output.outputFile = new File(output.outputFile.parent, filename)
+            }
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -36,8 +45,8 @@ dependencies {
     compile supportDependencies.support
     compile supportDependencies.appCompat
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.okhttp:okhttp:2.2.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+    compile 'com.squareup.okhttp:okhttp:2.3.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
     compile 'com.sothree.slidinguppanel:library:3.0.0'
     compile 'com.hkm.ui:ultimaterecyclerview:0.5.4'
 }
