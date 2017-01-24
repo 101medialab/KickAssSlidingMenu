@@ -1,1 +1,1 @@
-include ':app', ':menux'
+include ':app', ':library'

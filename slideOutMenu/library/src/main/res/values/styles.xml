@@ -63,6 +63,8 @@
         <item name="isLightTheme">true</item>
     </style>
 
+    <!-- since @color/hint_foreground_material_light & @color/hint_foreground_material_dark may not be defined -->
+
 
     <style name="defaultShowTimeSlidingMenuTheme" parent="Theme.AppCompat.Light.NoActionBar">
 

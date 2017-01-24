@@ -29,7 +29,7 @@ public abstract class slidableDetailPost<F> extends singleDetailPost<F> implemen
     protected void initalizeOtherUI() {
         aslb_dragabe_test = (RelativeLayout) findViewById(R.id.aslib_dragview);
         supl = (SlidingUpPanelLayout) findViewById(R.id.aslib_sliding_layout);
-        supl.setPanelSlideListener(this);
+        supl.addPanelSlideListener(this);
         addviewtodrageview(aslb_dragabe_test);
     }
 
