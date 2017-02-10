@@ -1,5 +1,6 @@
 package mxh.kickassmenu.gestured;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -1060,7 +1061,7 @@ public class SlidingMenu extends RelativeLayout {
     /* (non-Javadoc)
      * @see android.view.ViewGroup#fitSystemWindows(android.graphics.Rect)
      */
-   /* @SuppressLint("NewApi")
+    @SuppressLint("NewApi")
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         if (!mActionbarOverlay) {
@@ -1069,7 +1070,7 @@ public class SlidingMenu extends RelativeLayout {
         }
         return true;
     }
-*/
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void manageLayers(float percentOpen) {
         if (Build.VERSION.SDK_INT < 11) return;
