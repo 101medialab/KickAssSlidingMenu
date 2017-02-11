@@ -1061,7 +1061,7 @@ public class SlidingMenu extends RelativeLayout {
     /* (non-Javadoc)
      * @see android.view.ViewGroup#fitSystemWindows(android.graphics.Rect)
      */
-    @SuppressLint("NewApi")
+    /*@SuppressLint("NewApi")
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         if (!mActionbarOverlay) {
@@ -1069,7 +1069,7 @@ public class SlidingMenu extends RelativeLayout {
             setExtendPadding(insets);
         }
         return true;
-    }
+    }*/
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void manageLayers(float percentOpen) {
