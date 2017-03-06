@@ -544,8 +544,17 @@ public class SlidingMenu extends RelativeLayout {
      *
      * @param animate true to animate the transition, false to ignore animation
      */
-    public void showMenu(boolean animate) {
+    public void showMenuWithAnimation(boolean animate) {
         mViewAbove.setCurrentItem(0, animate);
+    }
+
+    /**
+     * @deprecated
+     * use showMenuWithAnimation(animate) instead
+     */
+    @Deprecated
+    public void showMenu(boolean animate) {
+        showMenuWithAnimation(animate);
     }
 
     /**
@@ -578,8 +587,17 @@ public class SlidingMenu extends RelativeLayout {
      *
      * @param animate true to animate the transition, false to ignore animation
      */
-    public void showContent(boolean animate) {
+    public void showContentWithAnimation(boolean animate) {
         mViewAbove.setCurrentItem(1, animate);
+    }
+
+    /**
+     * @deprecated
+     * use showContentWithAnimation(animate) instead
+     */
+    @Deprecated
+    public void showContent(boolean animate) {
+        showContentWithAnimation(animate);
     }
 
     /**
@@ -594,12 +612,21 @@ public class SlidingMenu extends RelativeLayout {
      *
      * @param animate true to animate the transition, false to ignore animation
      */
-    public void toggle(boolean animate) {
+    public void toggleWithAnimation(boolean animate) {
         if (isMenuShowing()) {
             showContent(animate);
         } else {
             showMenu(animate);
         }
+    }
+
+    /**
+     * @deprecated
+     * use toggleWithAnimation(animate) instead
+     */
+    @Deprecated
+    public void toggle(boolean animate) {
+        toggleWithAnimation(animate);
     }
 
     /**
