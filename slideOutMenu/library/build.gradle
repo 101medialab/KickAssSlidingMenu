@@ -3,20 +3,18 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
-    def libPrefix = 'slidingmenulib-'
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
         targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION  as int
         versionCode project.VERSION_CODE_MAIN_LIB as int
         versionName project.VERSION_NAME_MAIN_LIB
     }
     buildTypes {
         libraryVariants.all { variant ->
-            variant.outputs.each { output ->
-                def filename = output.outputFile.name
-                filename = filename.replace('library-', libPrefix).replace('.aar', '-' + defaultConfig.versionName + '.aar')
-                output.outputFile = new File(output.outputFile.parent, filename)
+            variant.outputs.all { output ->
+                def filename = "slidingmenulib-${variant.name}-${defaultConfig.versionName}.aar"
+                outputFileName = new File(filename)
             }
         }
 
@@ -50,6 +48,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.3.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
     compile 'com.sothree.slidinguppanel:library:3.3.1'
-    compile 'com.hkm.ui:ultimaterecyclerview:0.5.4'
+    compile 'com.hkm.ui:ultimaterecyclerview:0.5.92'
 }
 apply from: 'br.gradle'

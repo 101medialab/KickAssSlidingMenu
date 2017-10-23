@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,23 +22,17 @@ import mxh.kickassmenu.menucontent.internalChangeInFragment;
  * Created by hesk on 2/7/15.
  */
 public abstract class singleDetailPost<Frag> extends AppCompatActivity implements internalChangeInFragment<Frag> {
-    private Toolbar tb;
     protected String url;
     protected long pid;
-    protected Frag currentFragmentNow, rightMenuFragment;
+    protected Frag currentFragmentNow;
     public static final String
             PID = "POST_ID",
             Method = "METHOD_REQUEST",
             requestURL = "URL",
             TAG = "singlePost";
 
-
     public static final int REQUEST_METHOD_FULL_URL = 1;
     public static final int REQUEST_METHOD_POST_ID = 2;
-
-    protected Toolbar getTB() {
-        return tb;
-    }
 
     private void initMainContentFragment(Frag mfragment, Bundle savestate) {
         if (savestate == null) {
@@ -91,11 +86,12 @@ public abstract class singleDetailPost<Frag> extends AppCompatActivity implement
         classicToolbarConfig(v7);
     }
 
-    protected void classicToolbarConfig(final Toolbar v7) {
+    protected void classicToolbarConfig(@NonNull Toolbar v7) {
         v7.setTitle(getTitle());
         setSupportActionBar(v7);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 
@@ -162,14 +158,7 @@ public abstract class singleDetailPost<Frag> extends AppCompatActivity implement
     public void setFragment(Frag fragment, String title, Frag oldFragment, boolean closeDrawer) {
         currentFragmentNow = fragment;
         setTitle(title);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            // before honeycomb there is not android.app.Fragment
-            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            if (oldFragment != null && oldFragment != fragment)
-                ft.remove((android.support.v4.app.Fragment) oldFragment);
-
-            ft.replace(R.id.aslib_main_frame_body, (android.support.v4.app.Fragment) fragment).commit();
-        } else if (fragment instanceof android.app.Fragment) {
+        if (fragment instanceof android.app.Fragment) {
             if (oldFragment instanceof android.support.v4.app.Fragment)
                 throw new RuntimeException("You should use only one type of Fragment");
 
@@ -235,7 +224,7 @@ public abstract class singleDetailPost<Frag> extends AppCompatActivity implement
         try {
             initMainContentFragment(getInitFragment(), savedInstanceState);
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "failed to initialize main content fragment", e);
         }
     }
 
@@ -261,14 +250,11 @@ public abstract class singleDetailPost<Frag> extends AppCompatActivity implement
 
     @Override
     protected void onPause() {
-        //  killwebview(mVideo);
         super.onPause();
     }
 
     @Override
     public void finish() {
-        //  killwebview(mVideo);
         super.finish();
     }
-    
 }
